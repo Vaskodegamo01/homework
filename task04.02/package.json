@@ -10,6 +10,7 @@
   "author": "Vasilii",
   "license": "ISC",
   "dependencies": {
+    "caesar-salad": "^1.0.1",
     "express": "^4.16.4"
   }
 }
