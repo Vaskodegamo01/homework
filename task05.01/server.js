@@ -6,8 +6,6 @@ const app = express();
 const port = 3333;
 
 app.use(express.json());
-app.use("/messages", messages);
+app.use("/", messages);
 
-fsDemo.init(() => {
-    app.listen(port, () => console.log("server start at " + port));
-});
+app.listen(port, () => console.log("server start at " + port));

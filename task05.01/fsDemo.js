@@ -1,23 +1,38 @@
 import fs from "fs";
-
+const path = "./messages/";
+const messages = [];
 
 export default {
     data: [],
-    init(callback) {
-        fs.readFile("./db.json", "utf8", (err, res)=> {
-            if (err) throw err;
-            if (res) this.data = JSON.parse(res);
-            callback();
-        })
+    readFile(){
+            fs.readdir(path, (err, files) => {
+                if (err) {
+                    throw err;
+                    return;
+                }
+                files.forEach(file => {
+                fs.readFile(path + file, "utf8", (err, res) => {
+                    if (err) {
+                        throw err;
+                        return;
+                    }
+                    if (res) this.data = JSON.parse(res);
+                    messages.push(this.data[0]);
+                    console.log(messages);  //messages тут все есть
+                });
+                console.log(messages); //messages пустой
+            });
+        });
+         console.log(messages); //messages пустой
+        return messages;
     },
     addItem(item){
-        this.data.push(item)
+        this.data.push(item);
     },
-    saveData(callback) {
-        fs.writeFile("./db.json", JSON.stringify(this.data), err => {
+    saveData(callback){
+        let now = new Date();
+        fs.writeFile(path + now.toISOString() + ".txt", JSON.stringify(this.data), err => {
             if (err) throw err;
-            callback()
         })
     }
-
 };
